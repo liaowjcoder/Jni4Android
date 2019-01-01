@@ -32,9 +32,17 @@ public class JniThreadDemo {
      */
     public native void callJavaMethodOnCPPMainThread();
 
+
+    /**
+     * 在主线程中调用，然后在子线程中会掉 onSuccess 函数
+     */
+    public native void callJavaMethodOnCppChildThread();
+
     public void onSuccess(String msg) {
         //System.out.println("onSuccess invoke.."+msg);
-        Toast.makeText(mContext, "JNI 回调 Java层 onSuccess 方法:" + msg, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "JNI 回调 Java层 onSuccess 方法:" + msg, Toast.LENGTH_SHORT).show();
+        //如果是在 jni 子线程回掉的话，那么 onSuccess 函数就是在子线程调用，注意子线程不能使用 Toast 哦
+        Log.d(TAG, "onSuccess>>" + Thread.currentThread().getName());
     }
 
 
@@ -53,4 +61,6 @@ public class JniThreadDemo {
             e.printStackTrace();
         }
     }
+
+
 }

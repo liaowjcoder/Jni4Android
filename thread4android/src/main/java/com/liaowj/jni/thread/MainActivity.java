@@ -36,4 +36,14 @@ public class MainActivity extends AppCompatActivity {
         JniThreadDemo jniThreadDemo = new JniThreadDemo(mContext);
         jniThreadDemo.callJavaMethodOnCPPMainThread();
     }
+
+    /**
+     * 在子线程调用 Java 函数
+     *
+     * @param view
+     */
+    public void callJavaMethodInChildThread(View view) {
+        JniThreadDemo jniThreadDemo = new JniThreadDemo(mContext);
+        jniThreadDemo.callJavaMethodOnCppChildThread();
+    }
 }

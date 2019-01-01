@@ -53,3 +53,36 @@ Java_com_liaowj_jni_thread_JniThreadDemo_callJavaMethodOnCPPMainThread(JNIEnv *e
     env->DeleteLocalRef(jmsg);
 
 }
+
+#include "JavaListener.h"
+pthread_t childThread;
+void *childCallback(void *data) {
+
+    JavaListener *javaListener = (JavaListener *) data;
+    javaListener->onSuccess("hello from child thread");
+    pthread_exit(&childThread);
+}
+
+
+//定义一个全局 java vm 实例
+JavaVM *jvm;
+//在加载动态库时回去调用 JNI_Onload 方法，在这里可以得到 JavaVM 实例对象
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env;
+    jvm = vm;
+    if (vm->GetEnv((void **) &env, JNI_VERSION_1_6) != JNI_OK) {
+        return -1;
+    }
+    return JNI_VERSION_1_6;
+}
+
+//在 c++ 子线程调用 Java 方法。
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_liaowj_jni_thread_JniThreadDemo_callJavaMethodOnCppChildThread(JNIEnv *env,
+                                                                        jobject instance) {
+    JavaListener *javaListener = new JavaListener(jvm, env, env->NewGlobalRef(instance));
+    pthread_create(&childThread, NULL, childCallback, javaListener);
+
+}
+

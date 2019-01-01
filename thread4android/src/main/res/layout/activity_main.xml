@@ -21,4 +21,11 @@
         android:onClick="callJavaMethodInSameThread"
         android:text="C++主线调用Java函数" />
 
+    <Button
+        android:id="@+id/btn_call_java_method_in_child_thread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="callJavaMethodInChildThread"
+        android:text="C++子线调用Java函数" />
+
 </LinearLayout>
