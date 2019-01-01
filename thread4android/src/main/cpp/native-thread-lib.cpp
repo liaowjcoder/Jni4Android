@@ -28,3 +28,28 @@ Java_com_liaowj_jni_thread_JniThreadDemo_createThread(JNIEnv *env, jobject insta
     pthread_create(&pthread, NULL, threadCallback, NULL);
 
 }
+
+
+//在 c++ 主线程调用 Java 方法。
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_liaowj_jni_thread_JniThreadDemo_callJavaMethodOnCPPMainThread(JNIEnv *env,
+                                                                       jobject jobj) {
+    //1. 得到 jclass
+    jclass jclz = env->GetObjectClass(jobj);
+
+    //2. 得到 jmethod
+    jmethodID jmethod = env->GetMethodID(jclz, "onSuccess", "(Ljava/lang/String;)V");
+
+
+    //得到 jstring
+    char *msg = "Msg From C++ Thread";
+    jstring jmsg = env->NewStringUTF(msg);
+
+
+    //3. 调用函数
+    env->CallVoidMethod(jobj, jmethod, jmsg);
+
+    env->DeleteLocalRef(jmsg);
+
+}

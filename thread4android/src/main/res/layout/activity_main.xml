@@ -3,14 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
-        android:text="创建 C++ 线程"
-        android:onClick="createThread"
         android:id="@+id/btn_create_thread"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="createThread"
+        android:text="创建 C++ 线程" />
+
+
+    <Button
+        android:id="@+id/btn_call_java_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="callJavaMethodInSameThread"
+        android:text="C++主线调用Java函数" />
 
 </LinearLayout>
