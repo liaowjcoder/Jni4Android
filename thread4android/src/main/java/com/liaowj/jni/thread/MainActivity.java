@@ -12,17 +12,17 @@ import android.view.View;
  **/
 public class MainActivity extends AppCompatActivity {
     private Context mContext = null;
+    private JniThreadDemo jniThreadDemo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
+        jniThreadDemo = new JniThreadDemo(mContext);
     }
 
     public void createThread(View view) {
-        JniThreadDemo jniThreadDemo = new JniThreadDemo(mContext);
-
         jniThreadDemo.createThread();
 
     }
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void callJavaMethodInSameThread(View view) {
-        JniThreadDemo jniThreadDemo = new JniThreadDemo(mContext);
         jniThreadDemo.callJavaMethodOnCPPMainThread();
     }
 
@@ -43,7 +42,14 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void callJavaMethodInChildThread(View view) {
-        JniThreadDemo jniThreadDemo = new JniThreadDemo(mContext);
         jniThreadDemo.callJavaMethodOnCppChildThread();
+    }
+
+    public void mutex(View view) {
+        jniThreadDemo.mutex();
+    }
+
+    public void stopMutex(View view) {
+        jniThreadDemo.stopMutex();
     }
 }

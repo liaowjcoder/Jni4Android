@@ -62,5 +62,10 @@ public class JniThreadDemo {
         }
     }
 
+    public native  void mutex() ;
+    public native  void stopMutex() ;
+
+
+
 
 }

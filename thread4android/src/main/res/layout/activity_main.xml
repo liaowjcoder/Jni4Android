@@ -28,4 +28,22 @@
         android:onClick="callJavaMethodInChildThread"
         android:text="C++子线调用Java函数" />
 
+
+
+    <Button
+        android:id="@+id/btn_mutex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="mutex"
+        android:text="生产与消费" />
+
+
+
+    <Button
+        android:id="@+id/btn_stop_mutex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="stopMutex"
+        android:text="停止生产与消费" />
+
 </LinearLayout>
